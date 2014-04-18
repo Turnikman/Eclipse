@@ -1,0 +1,51 @@
+<project name="HelloAnt" default="deploy">
+
+	<property name="dest" value="./binary" />
+
+	<property file="build.properties" />
+
+	<tstamp />
+
+	<target name="build" depends="init" />
+
+	<echo message="${hello.message} ${TODAY}" />
+
+	<mkdir dir="${dest}" />
+
+	<javac srcdir="${src.dir}" destdir="${dest}">
+
+	</javac>
+
+	<target name="init">
+
+		<mkdir dir="${dest}" />
+
+	</target>
+
+	<target name="clean">
+
+		<delete dir="${dest}" />
+
+	</target>
+
+	<target name="deploy" depends="build">
+		<mkdir dir="./deploy" />
+
+		<zip destfile="./deploy/helloant.zip">
+			<zipfileset dir="${dest}" prefix="bins"/>
+		</zip>
+		
+		<!--<copy todir="./deploy">
+
+			<fileset dir="${dest}">
+				<include name="**/*" />
+				<exclude name="*d"/>
+			</fileset>
+		</copy>-->
+		
+		<!--<exec executable="cmd">
+			<arg value="lalala" />
+		</exec>-->
+	</target>
+
+</project>
